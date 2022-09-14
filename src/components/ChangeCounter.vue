@@ -7,7 +7,7 @@ export default {
   methods: {
     addOne() {
       console.log('ChangeCounter Cmp addOne');
-      this.$store.commit('increment');
+      this.$store.dispatch('increment');
     },
   },
 };
