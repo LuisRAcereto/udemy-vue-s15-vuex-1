@@ -2,13 +2,14 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 
 import App from './App.vue';
-// configure store
-// you can only have one store for information.
-const store = createStore({
+
+// A store can have modules (0*),
+// Look at counterModule declaration, which have pretty much
+// the same elements in its configuration than store.
+const counterModule = {
   state() {
     return {
       counter: 0,
-      isLoggedIn: false,
     };
   },
   mutations: {
@@ -18,12 +19,8 @@ const store = createStore({
     increase(state, payload) {
       state.counter += payload.value;
     },
-    setAuth(state, payload) {
-      state.isLoggedIn = payload.isAuth;
-    },
   },
   actions: {
-    // Notice that action can be called the same than the mutation it affects
     increment(context) {
       setTimeout(() => {
         context.commit('increment');
@@ -32,17 +29,8 @@ const store = createStore({
     increase(context, payload) {
       context.commit('increase', payload);
     },
-    login(context) {
-      context.commit('setAuth', { isAuth: true });
-    },
-    logout(context) {
-      context.commit('setAuth', { isAuth: false });
-    },
   },
   getters: {
-    userIsAuthenticated(state) {
-      return state.isLoggedIn;
-    },
     finalCounter(state) {
       return state.counter * 2;
     },
@@ -60,6 +48,40 @@ const store = createStore({
           break;
       }
       return finalCounter;
+    },
+  },
+};
+
+// configure store
+// you can only have one store for information.
+const store = createStore({
+  // to associate modules to a store simply add it as part of
+  // modules configuration object as displayed below.
+  modules: {
+    numbers: counterModule,
+  },
+  state() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  mutations: {
+    setAuth(state, payload) {
+      state.isLoggedIn = payload.isAuth;
+    },
+  },
+  actions: {
+    // Notice that action can be called the same than the mutation it affects
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
+    },
+  },
+  getters: {
+    userIsAuthenticated(state) {
+      return state.isLoggedIn;
     },
   },
 });
