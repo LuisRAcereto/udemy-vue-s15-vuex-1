@@ -8,12 +8,7 @@ import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    // addOne() {
-    //   console.log('ChangeCounter Cmp addOne');
-    //   this.$store.dispatch('increment');
-    // },
-    // ...mapActions(['increment', 'incrase']),
-    ...mapActions({
+    ...mapActions('numbers', {
       inc: 'increment',
       increase: 'increase',
     }),

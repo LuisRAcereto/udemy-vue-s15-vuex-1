@@ -7,7 +7,8 @@
 export default {
   computed: {
     counter() {
-      return this.$store.getters.normalizeCounter;
+      // Bellow is the syntax to use getters with namespaced module
+      return this.$store.getters['numbers/normalizeCounter'];
     },
   },
 };

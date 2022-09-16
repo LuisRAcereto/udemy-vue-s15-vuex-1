@@ -7,11 +7,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    // counter() {
-    //   return this.$store.getters.finalCounter;
-    // },
-    // brings all the getters from the store specified in the parameter array.
-    ...mapGetters(['finalCounter']),
+    // notice how to use a namespaced module, the namespace of the module
+    // should be specified as first parameters in the map.
+    ...mapGetters('numbers', ['finalCounter']),
   },
 };
 </script>

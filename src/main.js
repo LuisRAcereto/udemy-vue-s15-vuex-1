@@ -7,6 +7,10 @@ import App from './App.vue';
 // Look at counterModule declaration, which have pretty much
 // the same elements in its configuration than store.
 const counterModule = {
+  // to use namespace for the moduleuse namespace property
+  // this indicates to Vue that the whole module, not just state,
+  // should be detacched ofrom the rest of the store.
+  namespaced: true,
   state() {
     return {
       counter: 0,
@@ -17,6 +21,7 @@ const counterModule = {
       state.counter += 2;
     },
     increase(state, payload) {
+      console.log(state);
       state.counter += payload.value;
     },
   },
